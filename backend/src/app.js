@@ -11,7 +11,7 @@ const registroRoutes=require("./routes/RegistroRoute");
 
 const app= express();
 
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 
 app.get("/", function(req, res) {
@@ -30,7 +30,7 @@ app.use(function(req, res) {
 });
 
 
-app.use(function(error, req, res) {
+app.use(function(error, req, res, next) {
     console.error(error);
     res.status(500).json({ mensaje: "Ocurrió un error en el servidor" });
 });
